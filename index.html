@@ -1,0 +1,1024 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>AFTER DARK | Exclusive Pool Party | NØHREIN Amritsar</title>
+  <meta name="description"
+    content="Book your pass for AFTER DARK - an exclusive night pool party presented by NØHREIN, Amritsar. Sat 26 Sept, 8 PM onwards. Same People, Different Energy.">
+  <meta name="theme-color" content="#05070D">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="AFTER DARK | Exclusive Pool Party at NØHREIN Amritsar">
+  <meta property="og:description"
+    content="Same People • Different Energy. Book your passes now for Amritsar's most exclusive night pool party.">
+  <meta property="og:image" content="assets/poster-blue.png">
+  <meta property="og:type" content="website">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="assets/logo.png">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Cinzel:wght@600;700;900&family=Outfit:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet">
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <!-- Atmospheric Blurred Poster Background (Visible below Hero) -->
+  <div class="site-bg-poster" id="site-bg-poster" aria-hidden="true">
+    <div class="site-bg-poster-blur"></div>
+    <div class="site-bg-poster-overlay"></div>
+  </div>
+
+  <!-- Ambient Particle Canvas -->
+  <canvas id="particle-canvas"></canvas>
+  <div class="ambient-grain"></div>
+
+  <!-- ========================================================================
+       Top Navigation Bar
+       ======================================================================== -->
+  <header class="site-header" id="navbar">
+    <div class="container nav-container">
+      <a href="#hero" class="brand-link" aria-label="AFTER DARK Homepage">
+        <img src="assets/logo.png" alt="AFTER DARK Logo" class="brand-logo" id="nav-logo">
+        <div class="brand-badge">
+          <span class="brand-presented">Presented By NØHREIN</span>
+        </div>
+      </a>
+
+      <div class="nav-actions">
+        <button type="button" class="nav-btn-poster" id="btn-open-gallery" aria-label="View party posters">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="3" width="18" height="18" rx="2" />
+            <circle cx="8.5" cy="8.5" r="1.5" />
+            <polyline points="21 15 16 10 5 21" />
+          </svg>
+          Posters
+        </button>
+        <a href="#tickets" class="nav-btn-book" id="nav-btn-book">
+          <span>Book Pass</span>
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <line x1="5" y1="12" x2="19" y2="12" />
+            <polyline points="12 5 19 12 12 19" />
+          </svg>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ========================================================================
+       Hero Section
+       ======================================================================== -->
+  <section class="hero-section" id="hero">
+    <!-- Atmospheric Moon Glow -->
+    <div class="hero-moon" aria-hidden="true"></div>
+
+    <!-- Decorative Palm Silhouettes -->
+    <svg class="hero-palm-left" viewBox="0 0 100 180" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <path
+        d="M10 180C15 130 35 90 70 50C50 60 30 80 15 110M70 50C60 30 40 10 10 0C30 20 50 40 70 50M70 50C90 40 100 20 95 0C85 25 75 45 70 50M70 50C85 70 95 100 90 130C80 95 75 75 70 50"
+        stroke="#4fc3f7" stroke-width="2.5" stroke-linecap="round" />
+    </svg>
+    <svg class="hero-palm-right" viewBox="0 0 100 180" fill="none" xmlns="http://www.w3.org/2000/svg"
+      aria-hidden="true">
+      <path
+        d="M10 180C15 130 35 90 70 50C50 60 30 80 15 110M70 50C60 30 40 10 10 0C30 20 50 40 70 50M70 50C90 40 100 20 95 0C85 25 75 45 70 50M70 50C85 70 95 100 90 130C80 95 75 75 70 50"
+        stroke="#4fc3f7" stroke-width="2.5" stroke-linecap="round" />
+    </svg>
+
+    <div class="container hero-content">
+      <div class="hero-badge-pill">
+        <span class="pulse-dot"></span>
+        <span>NØHREIN Presents </span>
+      </div>
+
+      <!-- Main Cracked-Ice Logo -->
+      <div class="hero-logo-wrapper">
+        <img src="assets/logo.png" alt="AFTER DARK - Exclusive Party" class="hero-logo-img" id="hero-logo">
+      </div>
+
+      <div class="hero-exclusive-tag">EXCLUSIVE PARTY</div>
+      <p class="hero-tagline">SAME PEOPLE • DIFFERENT ENERGY</p>
+
+      <!-- Event Details Bar -->
+      <div class="event-details-bar">
+        <div class="event-detail-item">
+          <svg class="event-detail-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+            <line x1="16" y1="2" x2="16" y2="6" />
+            <line x1="8" y1="2" x2="8" y2="6" />
+            <line x1="3" y1="10" x2="21" y2="10" />
+          </svg>
+          <span><strong>Sat, 26 Sept</strong></span>
+        </div>
+        <div class="event-detail-divider"></div>
+        <div class="event-detail-item">
+          <svg class="event-detail-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+            <circle cx="12" cy="10" r="3" />
+          </svg>
+          <span><strong>NØHREIN</strong>, Amritsar</span>
+        </div>
+        <div class="event-detail-divider"></div>
+        <div class="event-detail-item">
+          <svg class="event-detail-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="10" />
+            <polyline points="12 6 12 12 16 14" />
+          </svg>
+          <span><strong>7:00 PM</strong> Onwards</span>
+        </div>
+        <div class="event-detail-divider"></div>
+        <div class="event-detail-item">
+          <svg class="event-detail-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+          </svg>
+          <span><strong>18+</strong> Strict Entry</span>
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="hero-cta-group">
+        <a href="#tickets" class="btn-primary" id="btn-hero-book">
+          <span>Book Your Ticket</span>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <polyline points="7 13 12 18 17 13" />
+            <polyline points="7 6 12 11 17 6" />
+          </svg>
+        </a>
+        <button type="button" class="btn-secondary" id="btn-hero-poster">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polygon points="5 3 19 12 5 21 5 3" />
+          </svg>
+          <span>Party Atmosphere Teasers</span>
+        </button>
+      </div>
+
+      <!-- Inclusions Highlights Strip -->
+      <div class="inclusions-strip">
+        <div class="inclusions-grid">
+          <div class="inclusion-badge">
+            <div class="inclusion-icon-circle">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                <path d="M8 22h8M12 11v11M17 3l-5 8-5-8h10z" />
+              </svg>
+            </div>
+            <span class="inclusion-text">2 Drinks<br>Complimentary</span>
+          </div>
+
+          <div class="inclusion-badge">
+            <div class="inclusion-icon-circle">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                <path d="M18 8h1a4 4 0 0 1 0 8h-1M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8zM6 1v3M10 1v3M14 1v3" />
+              </svg>
+            </div>
+            <span class="inclusion-text">Unlimited<br>Starters</span>
+          </div>
+
+          <div class="inclusion-badge">
+            <div class="inclusion-icon-circle">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                <path
+                  d="M2 12c1.5-2 3.5-2 5 0s3.5 2 5 0 3.5-2 5 0 3.5 2 5 0M2 18c1.5-2 3.5-2 5 0s3.5 2 5 0 3.5-2 5 0 3.5 2 5 0M8 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4z" />
+              </svg>
+            </div>
+            <span class="inclusion-text">Pool<br>Access</span>
+          </div>
+
+          <div class="inclusion-badge">
+            <div class="inclusion-icon-circle">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                <path d="M5 2h14l-2 18H7L5 2zM12 2v8" />
+              </svg>
+            </div>
+            <span class="inclusion-text">Unlimited<br>Mixers & Water</span>
+          </div>
+
+          <div class="inclusion-badge">
+            <div class="inclusion-icon-circle">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                <path d="M3 18v-6a9 9 0 0 1 18 0v6" />
+                <path
+                  d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z" />
+              </svg>
+            </div>
+            <span class="inclusion-text">DJ<br>Experience</span>
+          </div>
+
+          <div class="inclusion-badge">
+            <div class="inclusion-icon-circle">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                <polyline points="20 12 20 22 4 22 4 12" />
+                <rect x="2" y="7" width="20" height="5" />
+                <line x1="12" y1="22" x2="12" y2="7" />
+                <path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z" />
+                <path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z" />
+              </svg>
+            </div>
+            <span class="inclusion-text">Surprise<br>Awaits</span>
+          </div>
+        </div>
+      </div>
+
+      <p class="hero-footer-mantra">DIVE • DANCE • DRINK • REPEAT • TILL SUNRISE...?</p>
+    </div>
+  </section>
+
+  <!-- ========================================================================
+       Step 1: Ticket Selection Section
+       ======================================================================== -->
+  <section class="section-wrapper" id="tickets">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-script-accent">Pick Your Experience</span>
+        <h2 class="section-title">SELECT YOUR <span class="section-title-highlight">PASS</span></h2>
+        <p class="section-subtitle">Choose your entry tier below to unlock exclusive poolside access, premium drinks,
+          and gourmet catering.</p>
+        <div class="divider-glow"></div>
+      </div>
+
+      <div class="ticket-grid" id="ticket-grid">
+
+        <!-- Card 1: Stag Entry -->
+        <div class="ticket-card" data-type="stag" data-name="Stag Entry" data-price="2500" data-group="Individual"
+          data-maxguests="1" id="ticket-card-stag">
+          <div class="ticket-header">
+            <div class="ticket-group-tag">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                <circle cx="12" cy="7" r="4" />
+              </svg>
+              <span>Individual • 1 Guest</span>
+            </div>
+            <h3 class="ticket-name">Stag Entry</h3>
+            <div class="ticket-price-box">
+              <span class="ticket-currency">₹</span>
+              <span class="ticket-price">2,500</span>
+            </div>
+            <div class="ticket-divider"></div>
+          </div>
+
+          <ul class="ticket-inclusions">
+            <li class="ticket-inclusion-item">
+              <svg class="inclusion-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <polyline points="20 6 9 17 4 12" />
+              </svg>
+              <span><strong>Unlimited food</strong> & gourmet live starters</span>
+            </li>
+            <li class="ticket-inclusion-item">
+              <svg class="inclusion-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <polyline points="20 6 9 17 4 12" />
+              </svg>
+              <span>Complimentary shots for ladies</span>
+            </li>
+            <li class="ticket-inclusion-item">
+              <svg class="inclusion-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <polyline points="20 6 9 17 4 12" />
+              </svg>
+              <span>1 Beer + 1 Cocktail for guys</span>
+            </li>
+            <li class="ticket-inclusion-item">
+              <svg class="inclusion-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <polyline points="20 6 9 17 4 12" />
+              </svg>
+              <span>Full poolside & dancefloor access</span>
+            </li>
+            <li class="ticket-inclusion-item">
+              <svg class="inclusion-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <polyline points="20 6 9 17 4 12" />
+              </svg>
+              <span>Unlimited mixers & packaged water</span>
+            </li>
+          </ul>
+
+          <button type="button" class="ticket-select-btn" id="btn-select-stag">
+            <span class="btn-text">Select This Ticket</span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <line x1="5" y1="12" x2="19" y2="12" />
+              <polyline points="12 5 19 12 12 19" />
+            </svg>
+          </button>
+        </div>
+
+        <!-- Card 2: Couple Entry -->
+        <div class="ticket-card" data-type="couple" data-name="Couple Entry" data-price="4000" data-group="2 Guests"
+          data-maxguests="2" id="ticket-card-couple">
+          <div class="ticket-ribbon">Popular</div>
+          <div class="ticket-header">
+            <div class="ticket-group-tag">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+                <circle cx="9" cy="7" r="4" />
+                <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+                <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+              </svg>
+              <span>Couple • 2 Guests</span>
+            </div>
+            <h3 class="ticket-name">Couple Entry</h3>
+            <div class="ticket-price-box">
+              <span class="ticket-currency">₹</span>
+              <span class="ticket-price">4,000</span>
+            </div>
+            <div class="ticket-divider"></div>
+          </div>
+
+          <ul class="ticket-inclusions">
+            <li class="ticket-inclusion-item">
+              <svg class="inclusion-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <polyline points="20 6 9 17 4 12" />
+              </svg>
+              <span><strong>Unlimited food</strong> & gourmet starters</span>
+            </li>
+            <li class="ticket-inclusion-item">
+              <svg class="inclusion-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <polyline points="20 6 9 17 4 12" />
+              </svg>
+              <span>Complimentary shots for ladies</span>
+            </li>
+            <li class="ticket-inclusion-item">
+              <svg class="inclusion-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <polyline points="20 6 9 17 4 12" />
+              </svg>
+              <span>2 Beers + 2 Signature Cocktails</span>
+            </li>
+            <li class="ticket-inclusion-item">
+              <svg class="inclusion-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <polyline points="20 6 9 17 4 12" />
+              </svg>
+              <span>Pool access for 2 guests</span>
+            </li>
+            <li class="ticket-inclusion-item">
+              <svg class="inclusion-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <polyline points="20 6 9 17 4 12" />
+              </svg>
+              <span>Unlimited mixers & soft drinks</span>
+            </li>
+          </ul>
+
+          <button type="button" class="ticket-select-btn" id="btn-select-couple">
+            <span class="btn-text">Select This Ticket</span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <line x1="5" y1="12" x2="19" y2="12" />
+              <polyline points="12 5 19 12 12 19" />
+            </svg>
+          </button>
+        </div>
+
+        <!-- Card 3: Standing Table -->
+        <div class="ticket-card" data-type="standing" data-name="Standing Table" data-price="15000"
+          data-group="5–6 Members" data-maxguests="6" id="ticket-card-standing">
+          <div class="ticket-header">
+            <div class="ticket-group-tag">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+                <circle cx="9" cy="7" r="4" />
+                <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+                <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+              </svg>
+              <span>Group • 5–6 Members</span>
+            </div>
+            <h3 class="ticket-name">Standing Table</h3>
+            <div class="ticket-price-box">
+              <span class="ticket-currency">₹</span>
+              <span class="ticket-price">15,000</span>
+            </div>
+            <div class="ticket-divider"></div>
+          </div>
+
+          <ul class="ticket-inclusions">
+            <li class="ticket-inclusion-item">
+              <svg class="inclusion-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <polyline points="20 6 9 17 4 12" />
+              </svg>
+              <span><strong>1 Full Bottle</strong> (Premium Rum / Vodka)</span>
+            </li>
+            <li class="ticket-inclusion-item">
+              <svg class="inclusion-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <polyline points="20 6 9 17 4 12" />
+              </svg>
+              <span>Complimentary shots for ladies</span>
+            </li>
+            <li class="ticket-inclusion-item">
+              <svg class="inclusion-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <polyline points="20 6 9 17 4 12" />
+              </svg>
+              <span>2 Cocktails or Beers included</span>
+            </li>
+            <li class="ticket-inclusion-item">
+              <svg class="inclusion-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <polyline points="20 6 9 17 4 12" />
+              </svg>
+              <span>Unlimited snacks & live platters</span>
+            </li>
+            <li class="ticket-inclusion-item">
+              <svg class="inclusion-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <polyline points="20 6 9 17 4 12" />
+              </svg>
+              <span>Dedicated elevated high-top standing table</span>
+            </li>
+          </ul>
+
+          <button type="button" class="ticket-select-btn" id="btn-select-standing">
+            <span class="btn-text">Select This Ticket</span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <line x1="5" y1="12" x2="19" y2="12" />
+              <polyline points="12 5 19 12 12 19" />
+            </svg>
+          </button>
+        </div>
+
+        <!-- Card 4: VIP Table -->
+        <div class="ticket-card" data-type="vip" data-name="VIP Table" data-price="40000" data-group="15 Members"
+          data-maxguests="15" id="ticket-card-vip">
+          <div class="ticket-ribbon">Ultra VIP</div>
+          <div class="ticket-header">
+            <div class="ticket-group-tag">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polygon
+                  points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+              </svg>
+              <span>Cabana • Up to 15 Guests</span>
+            </div>
+            <h3 class="ticket-name">VIP Table</h3>
+            <div class="ticket-price-box">
+              <span class="ticket-currency">₹</span>
+              <span class="ticket-price">40,000</span>
+            </div>
+            <div class="ticket-divider"></div>
+          </div>
+
+          <ul class="ticket-inclusions">
+            <li class="ticket-inclusion-item">
+              <svg class="inclusion-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <polyline points="20 6 9 17 4 12" />
+              </svg>
+              <span><strong>2–3 Full Premium Bottles</strong> (Champagne + Vodka + Rum/Scotch)</span>
+            </li>
+            <li class="ticket-inclusion-item">
+              <svg class="inclusion-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <polyline points="20 6 9 17 4 12" />
+              </svg>
+              <span>Unlimited gourmet food & chef's platters</span>
+            </li>
+            <li class="ticket-inclusion-item">
+              <svg class="inclusion-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <polyline points="20 6 9 17 4 12" />
+              </svg>
+              <span>Complimentary shots for ladies</span>
+            </li>
+            <li class="ticket-inclusion-item">
+              <svg class="inclusion-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <polyline points="20 6 9 17 4 12" />
+              </svg>
+              <span>Dedicated VIP butler & reserved security</span>
+            </li>
+            <li class="ticket-inclusion-item">
+              <svg class="inclusion-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <polyline points="20 6 9 17 4 12" />
+              </svg>
+              <span>Prime poolside cabana lounge with DJ view</span>
+            </li>
+          </ul>
+
+          <button type="button" class="ticket-select-btn" id="btn-select-vip">
+            <span class="btn-text">Select This Ticket</span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <line x1="5" y1="12" x2="19" y2="12" />
+              <polyline points="12 5 19 12 12 19" />
+            </svg>
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================================
+       Step 2: Attendee Booking Form
+       ======================================================================== -->
+  <section class="section-wrapper booking-section" id="booking-section">
+    <div class="container">
+      <div class="booking-panel" id="booking-panel">
+
+        <div class="section-header" style="margin-bottom: 1.75rem;">
+          <span class="section-script-accent">Step 2 of 3</span>
+          <h2 class="section-title">GUEST <span class="section-title-highlight">DETAILS</span></h2>
+          <p class="section-subtitle">Please enter your verified details for pass registration & entry security.</p>
+        </div>
+
+        <!-- Selected Ticket Sticky Summary Bar -->
+        <div class="booking-summary-bar">
+          <div class="summary-left">
+            <div class="summary-ticket-dot" id="summary-dot"></div>
+            <div>
+              <div class="summary-ticket-name" id="summary-ticket-name">Stag Entry</div>
+              <div style="font-size: 0.78rem; color: var(--text-muted);" id="summary-ticket-group">Individual Pass</div>
+            </div>
+          </div>
+          <div style="display: flex; align-items: center; gap: 15px;">
+            <span class="summary-ticket-price" id="summary-ticket-price">₹2,500</span>
+            <button type="button" class="btn-change-ticket" id="btn-change-ticket">Change Ticket</button>
+          </div>
+        </div>
+
+        <!-- Form -->
+        <form id="booking-form" novalidate>
+          <div class="form-grid">
+
+            <!-- Full Name -->
+            <div class="form-group" id="group-fullname">
+              <label class="form-label" for="input-fullname">
+                Full Name <span class="required-star">*</span>
+              </label>
+              <div class="input-wrapper">
+                <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                  <circle cx="12" cy="7" r="4" />
+                </svg>
+                <input type="text" id="input-fullname" class="form-input" placeholder="e.g. Rohan Sharma" required
+                  autocomplete="name">
+              </div>
+              <span class="form-error-msg" id="error-fullname">Please enter your full name as per Government ID.</span>
+            </div>
+
+            <!-- Phone Number -->
+            <div class="form-group" id="group-phone">
+              <label class="form-label" for="input-phone">
+                WhatsApp Phone Number <span class="required-star">*</span>
+              </label>
+              <div class="input-wrapper">
+                <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path
+                    d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
+                </svg>
+                <input type="tel" id="input-phone" class="form-input" placeholder="10-digit Mobile (e.g. 9812345678)"
+                  maxlength="10" required autocomplete="tel">
+              </div>
+              <span class="form-error-msg" id="error-phone">Please enter a valid 10-digit Indian mobile number.</span>
+            </div>
+
+            <!-- Age Gate -->
+            <div class="form-group" id="group-age">
+              <label class="form-label" for="input-age">
+                <span>Age <span class="required-star">*</span></span>
+                <span class="age-gate-badge">🔞 18+ Mandatory</span>
+              </label>
+              <div class="input-wrapper">
+                <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="12" cy="12" r="10" />
+                  <line x1="12" y1="8" x2="12" y2="12" />
+                  <line x1="12" y1="16" x2="12.01" y2="16" />
+                </svg>
+                <input type="number" id="input-age" class="form-input" placeholder="Age (e.g. 23)" min="18" max="99"
+                  required>
+              </div>
+              <span class="form-error-msg" id="error-age">You must be 18+ to book and attend AFTER DARK.</span>
+            </div>
+
+            <!-- Email Address -->
+            <div class="form-group" id="group-email">
+              <label class="form-label" for="input-email">
+                Email Address <span class="required-star">*</span>
+              </label>
+              <div class="input-wrapper">
+                <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+                  <polyline points="22,6 12,13 2,6" />
+                </svg>
+                <input type="email" id="input-email" class="form-input" placeholder="name@domain.com" required
+                  autocomplete="email">
+              </div>
+              <span class="form-error-msg" id="error-email">Please enter a valid email address.</span>
+            </div>
+
+            <!-- Dynamic Group Members Count (Table bookings only) -->
+            <div class="form-group form-group-full" id="group-guests-wrapper" style="display: none;">
+              <label class="form-label" for="select-guests">
+                Number of Guests / Table Members <span class="required-star">*</span>
+              </label>
+              <div class="input-wrapper">
+                <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+                  <circle cx="9" cy="7" r="4" />
+                  <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+                  <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+                </svg>
+                <select id="select-guests" class="form-select">
+                  <!-- Dynamically populated via JS -->
+                </select>
+              </div>
+              <span class="form-error-msg" id="error-guests">Please select guest count within the table
+                allocation.</span>
+            </div>
+
+            <!-- Optional Special Requests / Notes -->
+            <div class="form-group form-group-full" id="group-notes">
+              <label class="form-label" for="input-notes">
+                <span>Special Requests / Bottle Choice / Dietary Notes (Optional)</span>
+              </label>
+              <textarea id="input-notes" class="form-textarea"
+                placeholder="E.g., Preferred Vodka brand, celebrating birthday, poolside cabana preference..."></textarea>
+            </div>
+
+          </div>
+
+          <div class="form-action">
+            <button type="submit" class="btn-proceed" id="btn-proceed-pay">
+              <span>Proceed to UPI Payment</span>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <line x1="5" y1="12" x2="19" y2="12" />
+                <polyline points="12 5 19 12 12 19" />
+              </svg>
+            </button>
+          </div>
+        </form>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================================
+       Step 3: Payment Section (Dynamic QR + Deep Links)
+       ======================================================================== -->
+  <section class="section-wrapper" id="payment-section" style="display: none;">
+    <div class="container payment-wrapper">
+
+      <div class="payment-card">
+        <div class="section-header" style="margin-bottom: 1.5rem;">
+          <span class="section-script-accent">Step 3 of 3</span>
+          <h2 class="section-title">SECURE <span class="section-title-highlight">PAYMENT</span></h2>
+          <p class="section-subtitle">Pay directly with any UPI app to confirm your booking.</p>
+        </div>
+
+        <!-- Order Summary Box -->
+        <div class="order-summary-box">
+          <div class="summary-rows">
+            <div class="summary-row">
+              <span class="summary-label">Ticket Type</span>
+              <span class="summary-val" id="pay-ticket-name">Stag Entry</span>
+            </div>
+            <div class="summary-row">
+              <span class="summary-label">Attendee Name</span>
+              <span class="summary-val" id="pay-guest-name">Rohan Sharma</span>
+            </div>
+            <div class="summary-row">
+              <span class="summary-label">Contact Phone</span>
+              <span class="summary-val" id="pay-guest-phone">+91 9812345678</span>
+            </div>
+            <div class="summary-row" id="pay-guest-count-row" style="display: none;">
+              <span class="summary-label">Party Size</span>
+              <span class="summary-val" id="pay-guest-count">1 Member</span>
+            </div>
+            <div class="summary-row total-row">
+              <span class="summary-label" style="font-weight: 700; color: #fff;">Total Payable Amount</span>
+              <span class="total-amount" id="pay-total-amount">₹2,500</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Payment Content Grid -->
+        <div class="payment-content-grid">
+
+          <!-- Dynamic QR Code Container -->
+          <div class="qr-display-container">
+            <div class="qr-box" id="dynamic-qr-box">
+              <!-- QRCode rendered here -->
+            </div>
+            <div class="qr-badge-scan">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="2.5">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                <polyline points="9 12 11 14 15 10" />
+              </svg>
+              <span>Scan to Pay via any UPI App</span>
+            </div>
+            <div class="qr-upi-logos">GPay • PhonePe • Paytm • CRED</div>
+            <button type="button" class="qr-toggle-btn" id="btn-toggle-static-qr">Switch to Official GPay QR
+              Image</button>
+          </div>
+
+          <!-- Direct Payment Actions -->
+          <div class="payment-actions-col">
+
+            <!-- Pay via UPI App deep link -->
+            <a href="#" class="pay-upi-direct-btn" id="link-upi-app" target="_blank" rel="noopener">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="5" y="2" width="14" height="20" rx="2" ry="2" />
+                <line x1="12" y1="18" x2="12.01" y2="18" />
+              </svg>
+              <span>Pay via UPI Mobile App</span>
+            </a>
+
+            <!-- UPI ID & Copy Box -->
+            <div class="upi-id-copy-box">
+              <div>
+                <div style="font-size: 0.72rem; color: var(--text-subtle); text-transform: uppercase;">Payee UPI ID
+                  (VPA)</div>
+                <div class="upi-id-text" id="val-upi-id">sarojmalhotra121@okaxis</div>
+              </div>
+              <button type="button" class="btn-copy-upi" id="btn-copy-upi">
+                Copy UPI
+              </button>
+            </div>
+
+            <!-- WhatsApp Ticket Handoff Box -->
+            <div class="handoff-box">
+              <div class="handoff-title">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <circle cx="12" cy="12" r="10" />
+                  <line x1="12" y1="16" x2="12" y2="12" />
+                  <line x1="12" y1="8" x2="12.01" y2="8" />
+                </svg>
+                <span>Final Step: Pass Issuance via WhatsApp</span>
+              </div>
+              <p class="handoff-instructions">
+                After completing your UPI payment, take a screenshot of your successful transaction. Send it to our
+                WhatsApp concierge along with your name — your official digital pass will be issued within minutes!
+              </p>
+              <a href="#" class="btn-whatsapp-send" id="btn-whatsapp-send" target="_blank" rel="noopener">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+                  <path
+                    d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z" />
+                </svg>
+                <span>Send Screenshot on WhatsApp</span>
+              </a>
+            </div>
+
+            <!-- View Confirmation Pass Button -->
+            <button type="button" class="btn-secondary" id="btn-view-pass"
+              style="width: 100%; justify-content: center;">
+              <span>I Have Sent My Screenshot → View Booking Pass</span>
+            </button>
+
+          </div>
+        </div>
+
+        <!-- Security Disclaimer -->
+        <div class="security-disclaimer">
+          <svg class="security-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+            <circle cx="12" cy="11" r="3" />
+            <line x1="12" y1="14" x2="12.01" y2="14" />
+          </svg>
+          <div>
+            <strong>100% Secure Payment Architecture:</strong> No banking passwords, UPI PINs, OTPs, or debit/credit
+            card details are ever requested or stored on this website. Payment authentication takes place exclusively
+            inside your trusted UPI banking app.
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================================
+       Step 4: Confirmation & Digital Pass Stub
+       ======================================================================== -->
+  <section class="section-wrapper" id="confirmation-section" style="display: none;">
+    <div class="container confirmation-wrapper">
+
+      <div class="section-header" style="margin-bottom: 1.5rem;">
+        <span class="section-script-accent">Pass Reserved!</span>
+        <h2 class="section-title">SEE YOU <span class="section-title-highlight">AFTER DARK 🌙</span></h2>
+        <p class="section-subtitle">Your booking record has been logged. Please make sure your payment screenshot is
+          sent to WhatsApp to confirm your entry wristband.</p>
+      </div>
+
+      <!-- Ticket Pass Stub -->
+      <div class="pass-card" id="digital-pass">
+        <div class="pass-notch-left"></div>
+        <div class="pass-notch-right"></div>
+
+        <div class="pass-header">
+          <img src="assets/logo.png" alt="AFTER DARK" class="pass-brand">
+          <div class="pass-type-badge" id="pass-type-badge"
+            style="background: rgba(79, 195, 247, 0.2); color: var(--ice-mid); border: 1px solid var(--ice-mid);">
+            STAG ENTRY
+          </div>
+        </div>
+
+        <div class="pass-body">
+          <div class="pass-field">
+            <span class="pass-label">Attendee Name</span>
+            <span class="pass-val" id="pass-guest-name">Rohan Sharma</span>
+          </div>
+
+          <div class="pass-field">
+            <span class="pass-label">Booking Reference</span>
+            <span class="pass-val highlight" id="pass-ref-id">AD-78249</span>
+          </div>
+
+          <div class="pass-field">
+            <span class="pass-label">Date & Time</span>
+            <span class="pass-val">Sat, 26 Sept • 8:00 PM</span>
+          </div>
+
+          <div class="pass-field">
+            <span class="pass-label">Venue</span>
+            <span class="pass-val">NØHREIN, Amritsar</span>
+          </div>
+
+          <div class="pass-field">
+            <span class="pass-label">Total Paid / Amount</span>
+            <span class="pass-val" id="pass-amount">₹2,500</span>
+          </div>
+
+          <div class="pass-field">
+            <span class="pass-label">Group Allocation</span>
+            <span class="pass-val" id="pass-allocation">1 Guest (Individual)</span>
+          </div>
+        </div>
+
+        <div class="pass-footer-strip">
+          <div class="pass-status-pill">
+            <span class="pulse-dot" style="background: #fbbf24; box-shadow: 0 0 8px #fbbf24;"></span>
+            <span>Awaiting WhatsApp Screenshot Verification</span>
+          </div>
+          <div style="font-size: 0.72rem; color: var(--text-subtle); text-transform: uppercase;">
+            Show at Entry Desk
+          </div>
+        </div>
+      </div>
+
+      <!-- Actions -->
+      <div class="confirmation-actions">
+        <a href="#" class="btn-whatsapp-send" id="btn-reopen-whatsapp" target="_blank" rel="noopener">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+            <path
+              d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z" />
+          </svg>
+          <span>Send Screenshot to Concierge</span>
+        </a>
+        <button type="button" class="btn-secondary" id="btn-print-pass">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="6 9 6 2 18 2 18 9" />
+            <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2" />
+            <rect x="6" y="14" width="12" height="8" />
+          </svg>
+          <span>Print / Save Pass</span>
+        </button>
+        <button type="button" class="btn-secondary" id="btn-book-another">
+          <span>Book Another Ticket</span>
+        </button>
+      </div>
+
+    </div>
+  </section><!--========================================================================Guidelines & Event
+    FAQ========================================================================-->
+  <section class="section-wrapper" id="guidelines" style="background: rgba(0, 0, 0, 0.2);">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-script-accent">Event Rules</span>
+        <h2 class="section-title">IMPORTANT <span class="section-title-highlight">GUIDELINES</span></h2>
+        <p class="section-subtitle">Everything you need to know before stepping poolside After Dark.</p>
+        <div class="divider-glow"></div>
+      </div>
+
+      <div class="faq-grid">
+        <div class="faq-card">
+          <div class="faq-icon-box">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+            </svg>
+          </div>
+          <div class="faq-content">
+            <h4>Strict 18+ Age Policy</h4>
+            <p>Physical Government ID (Aadhaar / Driving License / Passport) verification is mandatory at the security
+              desk. Under-age guests will not be permitted inside.</p>
+          </div>
+        </div>
+
+        <div class="faq-card">
+          <div class="faq-icon-box">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10" />
+              <polyline points="12 6 12 12 16 14" />
+            </svg>
+          </div>
+          <div class="faq-content">
+            <h4>Gate Timings & Pool Access</h4>
+            <p>Gates open at 8:00 PM sharp. Poolside access requires proper swimwear or night pool attire. Changing
+              rooms and towels are available on-premise.</p>
+          </div>
+        </div>
+
+        <div class="faq-card">
+          <div class="faq-icon-box">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path
+                d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z" />
+            </svg>
+          </div>
+          <div class="faq-content">
+            <h4>Dress Code</h4>
+            <p>Nightclub-poolside chic, glamorous beachwear, or smart casuals. Flip-flops allowed exclusively in pool
+              perimeter zones.</p>
+          </div>
+        </div>
+
+        <div class="faq-card">
+          <div class="faq-icon-box">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z" />
+              <path d="M19 10v2a7 7 0 0 1-14 0v-2" />
+              <line x1="12" y1="19" x2="12" y2="23" />
+              <line x1="8" y1="23" x2="16" y2="23" />
+            </svg>
+          </div>
+          <div class="faq-content">
+            <h4>Admission Rights</h4>
+            <p>Rights of admission reserved by NØHREIN Management. Strict zero-tolerance policy towards harassment,
+              illicit substances, and disorderly conduct.</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ========================================================================
+       Footer
+       ======================================================================== -->
+  <footer class="site-footer">
+    <img src="assets/logo.png" alt="" class="footer-watermark" aria-hidden="true">
+
+    <div class="container footer-content">
+      <img src="assets/logo.png" alt="AFTER DARK" class="footer-logo">
+
+      <div>
+        <h3 class="footer-mantra">MORE THAN A PARTY, A FEELING</h3>
+        <p class="footer-tagline-script">Same People • Different Energy</p>
+      </div>
+
+      <div class="footer-contact-row">
+        <a href="https://wa.me/919914980829" class="footer-contact-item" target="_blank" rel="noopener">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path
+              d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
+          </svg>
+          <span>Concierge Desk: +91 99149 80829</span>
+        </a>
+        <div class="footer-contact-item">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+            <circle cx="12" cy="10" r="3" />
+          </svg>
+          <a href="https://maps.app.goo.gl/XZ9fcHSkYRm7Zowt9" target="_blank">NØHREIN, Amritsar, Punjab</a>
+        </div>
+        <div class="footer-contact-item">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
+          </svg>
+          <a href="http://https://www.instagram.com/thenohrein/?hl=en">@thenohrein</a>
+        </div>
+      </div>
+
+      <div class="footer-badge-strict">
+        🔞 18+ Strictly Enforced • Drink Responsibly • Rights of Admission Reserved
+      </div>
+
+      <p class="footer-copyright">
+        © 2026 AFTER DARK presented by NØHREIN. All rights reserved. Designed for elite nightlife.
+      </p>
+    </div>
+  </footer>
+
+  <!-- ========================================================================
+       Poster Lightbox Modal
+       ======================================================================== -->
+  <div class="modal-overlay" id="poster-modal" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="modal-container">
+      <button type="button" class="modal-close-btn" id="modal-close-btn" aria-label="Close modal">✕</button>
+      <img src="assets/poster-blue.png" alt="Party Poster Preview" class="modal-image-preview" id="modal-img">
+      <div class="modal-controls">
+        <button type="button" class="modal-nav-btn" id="modal-prev-btn">‹ Previous</button>
+        <span id="modal-title" style="font-size: 0.85rem; font-weight: 600; color: #fff;">Electric Poolside
+          Edition</span>
+        <button type="button" class="modal-nav-btn" id="modal-next-btn">Next ›</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div class="toast-notification" id="toast-msg">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#4fc3f7" stroke-width="2.5">
+      <polyline points="20 6 9 17 4 12" />
+    </svg>
+    <span id="toast-text">UPI ID copied to clipboard!</span>
+  </div>
+
+  <!-- QR Code Generator Library -->
+  <script src="assets/qrcode.min.js"></script>
+  <!-- Application Logic -->
+  <script src="app.js"></script>
+</body>
+
+</html>
