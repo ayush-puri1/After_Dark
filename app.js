@@ -3,7 +3,7 @@
  * Presented by NØHRINE, Amritsar
  * Client-side Controller & Payment Orchestrator
  */
-
+import { Analytics } from "@vercel/analytics/next"
 // Strict Mode
 'use strict';
 
@@ -90,14 +90,14 @@ const dom = {
   navbar: document.getElementById('navbar'),
   ticketGrid: document.getElementById('ticket-grid'),
   ticketCards: document.querySelectorAll('.ticket-card'),
-  
+
   // Summary bar
   summaryDot: document.getElementById('summary-dot'),
   summaryTicketName: document.getElementById('summary-ticket-name'),
   summaryTicketGroup: document.getElementById('summary-ticket-group'),
   summaryTicketPrice: document.getElementById('summary-ticket-price'),
   btnChangeTicket: document.getElementById('btn-change-ticket'),
-  
+
   // Form fields
   bookingForm: document.getElementById('booking-form'),
   inputFullName: document.getElementById('input-fullname'),
@@ -108,12 +108,12 @@ const dom = {
   selectGuests: document.getElementById('select-guests'),
   inputNotes: document.getElementById('input-notes'),
   btnProceedPay: document.getElementById('btn-proceed-pay'),
-  
+
   // Sections
   bookingSection: document.getElementById('booking-section'),
   paymentSection: document.getElementById('payment-section'),
   confirmationSection: document.getElementById('confirmation-section'),
-  
+
   // Payment Elements
   payTicketName: document.getElementById('pay-ticket-name'),
   payGuestName: document.getElementById('pay-guest-name'),
@@ -128,7 +128,7 @@ const dom = {
   btnCopyUpi: document.getElementById('btn-copy-upi'),
   btnWhatsappSend: document.getElementById('btn-whatsapp-send'),
   btnViewPass: document.getElementById('btn-view-pass'),
-  
+
   // Confirmation Elements
   passTypeBadge: document.getElementById('pass-type-badge'),
   passGuestName: document.getElementById('pass-guest-name'),
@@ -138,7 +138,7 @@ const dom = {
   btnReopenWhatsapp: document.getElementById('btn-reopen-whatsapp'),
   btnPrintPass: document.getElementById('btn-print-pass'),
   btnBookAnother: document.getElementById('btn-book-another'),
-  
+
   // Poster Modal
   posterModal: document.getElementById('poster-modal'),
   modalImg: document.getElementById('modal-img'),
@@ -149,11 +149,11 @@ const dom = {
   btnOpenGallery: document.getElementById('btn-open-gallery'),
   btnHeroPoster: document.getElementById('btn-hero-poster'),
   posterCards: document.querySelectorAll('.poster-card'),
-  
+
   // Toast
   toastMsg: document.getElementById('toast-msg'),
   toastText: document.getElementById('toast-text'),
-  
+
   // Canvas
   particleCanvas: document.getElementById('particle-canvas')
 };
@@ -169,7 +169,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initPaymentActions();
   initModalGallery();
   initConfirmationActions();
-  
+
   // Set default selection
   selectTicket('stag', false);
 });
@@ -217,7 +217,7 @@ function selectTicket(type, autoScroll = false) {
   if (ticket.isTable) {
     dom.groupGuestsWrapper.style.display = 'flex';
     dom.selectGuests.innerHTML = '';
-    
+
     // Populate select
     for (let i = ticket.minGuests; i <= ticket.maxGuests; i++) {
       const opt = document.createElement('option');
@@ -320,13 +320,13 @@ function initFormValidation() {
 // ==========================================================================
 function renderPaymentStep() {
   const ticket = TICKETS[state.selectedTicket];
-  
+
   // Populate Summary
   dom.payTicketName.textContent = ticket.name;
   dom.payGuestName.textContent = state.fullName;
   dom.payGuestPhone.textContent = `+91 ${state.phone}`;
   dom.payTotalAmount.textContent = `₹${ticket.price.toLocaleString('en-IN')}`;
-  
+
   if (ticket.isTable) {
     dom.payGuestCountRow.style.display = 'flex';
     dom.payGuestCount.textContent = `${state.guestCount} Members Allocation`;
@@ -459,7 +459,7 @@ function fallbackCopy(text) {
 // ==========================================================================
 function renderConfirmationStep() {
   const ticket = TICKETS[state.selectedTicket];
-  
+
   dom.passTypeBadge.textContent = ticket.name;
   dom.passTypeBadge.style.color = ticket.color;
   dom.passTypeBadge.style.borderColor = ticket.color;
@@ -468,7 +468,7 @@ function renderConfirmationStep() {
   dom.passGuestName.textContent = state.fullName || 'Guest Attendee';
   dom.passRefId.textContent = state.bookingRef || 'AD-99104';
   dom.passAmount.textContent = `₹${ticket.price.toLocaleString('en-IN')}`;
-  
+
   if (ticket.isTable) {
     dom.passAllocation.textContent = `${state.guestCount} Guests (Reserved Table)`;
   } else {
