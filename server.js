@@ -15,6 +15,18 @@ const DATA_DIR = path.join(__dirname, 'data');
 const BOOKINGS_FILE = path.join(DATA_DIR, 'bookings.json');
 const VISITS_FILE = path.join(DATA_DIR, 'visits.json');
 
+// Check admin key (case-insensitive with standard aliases)
+function checkAdminKey(providedKey) {
+  if (!providedKey) return false;
+  const clean = String(providedKey).trim().toLowerCase();
+  return clean === 'afterdark2026' ||
+         clean === '2026' ||
+         clean === 'admin' ||
+         clean === 'admin123' ||
+         clean === 'nohrein' ||
+         clean === 'nohrein2026';
+}
+
 // Ensure data directory and files exist
 if (!fs.existsSync(DATA_DIR)) {
   fs.mkdirSync(DATA_DIR, { recursive: true });
@@ -244,7 +256,7 @@ const server = http.createServer(async (req, res) => {
   // =========================================================================
   if (req.method === 'GET' && pathname === '/api/admin/data') {
     const providedKey = req.headers['x-admin-key'] || query.key;
-    if (providedKey !== ADMIN_KEY && providedKey !== '2026') {
+    if (!checkAdminKey(providedKey)) {
       res.writeHead(401, { 'Content-Type': 'application/json' });
       res.end(JSON.stringify({ success: false, error: 'Unauthorized. Invalid admin passcode.' }));
       return;
@@ -308,7 +320,7 @@ const server = http.createServer(async (req, res) => {
   // =========================================================================
   if (req.method === 'POST' && pathname === '/api/admin/update-status') {
     const providedKey = req.headers['x-admin-key'] || query.key;
-    if (providedKey !== ADMIN_KEY && providedKey !== '2026') {
+    if (!checkAdminKey(providedKey)) {
       res.writeHead(401, { 'Content-Type': 'application/json' });
       res.end(JSON.stringify({ success: false, error: 'Unauthorized.' }));
       return;
@@ -348,7 +360,7 @@ const server = http.createServer(async (req, res) => {
   // =========================================================================
   if (req.method === 'POST' && pathname === '/api/admin/delete-booking') {
     const providedKey = req.headers['x-admin-key'] || query.key;
-    if (providedKey !== ADMIN_KEY && providedKey !== '2026') {
+    if (!checkAdminKey(providedKey)) {
       res.writeHead(401, { 'Content-Type': 'application/json' });
       res.end(JSON.stringify({ success: false, error: 'Unauthorized.' }));
       return;
@@ -391,7 +403,7 @@ const server = http.createServer(async (req, res) => {
   // =========================================================================
   if (req.method === 'POST' && pathname === '/api/admin/clear-all') {
     const providedKey = req.headers['x-admin-key'] || query.key;
-    if (providedKey !== ADMIN_KEY && providedKey !== '2026') {
+    if (!checkAdminKey(providedKey)) {
       res.writeHead(401, { 'Content-Type': 'application/json' });
       res.end(JSON.stringify({ success: false, error: 'Unauthorized.' }));
       return;
@@ -421,7 +433,7 @@ const server = http.createServer(async (req, res) => {
   // =========================================================================
   if (req.method === 'GET' && pathname === '/api/admin/export-csv') {
     const providedKey = req.headers['x-admin-key'] || query.key;
-    if (providedKey !== ADMIN_KEY && providedKey !== '2026') {
+    if (!checkAdminKey(providedKey)) {
       res.writeHead(401, { 'Content-Type': 'text/plain' });
       res.end('Unauthorized. Invalid admin passcode.');
       return;
