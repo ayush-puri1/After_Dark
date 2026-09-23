@@ -21,6 +21,16 @@ const CONFIG = {
 };
 
 const TICKETS = {
+  female: {
+    id: 'female',
+    name: 'Female Stag',
+    price: 1000,
+    color: '#ff2e93',
+    group: 'Individual (1 Lady)',
+    minGuests: 1,
+    maxGuests: 1,
+    isTable: false
+  },
   stag: {
     id: 'stag',
     name: 'Stag Entry',
@@ -34,7 +44,7 @@ const TICKETS = {
   couple: {
     id: 'couple',
     name: 'Couple Entry',
-    price: 4000,
+    price: 3000,
     color: '#b34fe0',
     group: 'Couple (2 Guests)',
     minGuests: 2,
@@ -44,7 +54,7 @@ const TICKETS = {
   standing: {
     id: 'standing',
     name: 'Standing Table',
-    price: 15000,
+    price: 10000,
     color: '#2fa8ff',
     group: 'Group (5–6 Members)',
     minGuests: 5,
@@ -54,7 +64,7 @@ const TICKETS = {
   vip: {
     id: 'vip',
     name: 'VIP Table',
-    price: 40000,
+    price: 30000,
     color: '#d4af37',
     group: 'Cabana (Up to 15 Guests)',
     minGuests: 5,
@@ -80,7 +90,10 @@ const state = {
   notes: '',
   bookingRef: '',
   showingStaticQR: false,
-  modalIndex: 0
+  modalIndex: 0,
+  upiAppClicked: false,
+  redirectTriggered: false,
+  countdownInterval: null
 };
 
 // ==========================================================================
@@ -154,6 +167,13 @@ const dom = {
   toastMsg: document.getElementById('toast-msg'),
   toastText: document.getElementById('toast-text'),
   
+  // WhatsApp Auto-Redirect Modal
+  waRedirectModal: document.getElementById('wa-redirect-modal'),
+  waCountdownNum: document.getElementById('wa-countdown-num'),
+  waProgressBar: document.getElementById('wa-progress-bar'),
+  btnWaRedirectNow: document.getElementById('btn-wa-redirect-now'),
+  btnWaCancel: document.getElementById('btn-wa-cancel'),
+
   // Canvas
   particleCanvas: document.getElementById('particle-canvas')
 };
@@ -169,6 +189,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initPaymentActions();
   initModalGallery();
   initConfirmationActions();
+  trackVisitor();
   
   // Set default selection
   selectTicket('stag', false);
@@ -436,12 +457,117 @@ function initPaymentActions() {
     renderConfirmationStep();
   });
 
+  // Pay via UPI App click handler (Track intent & prepare auto-redirect)
+  if (dom.linkUpiApp) {
+    dom.linkUpiApp.addEventListener('click', () => {
+      state.upiAppClicked = true;
+      state.redirectTriggered = false;
+      showToast('Opening UPI App... Return here after payment to auto-verify!');
+    });
+  }
+
+  // Return detector: when user completes payment in GPay/PhonePe and returns to browser
+  document.addEventListener('visibilitychange', () => {
+    if (document.visibilityState === 'visible' && state.upiAppClicked && !state.redirectTriggered) {
+      setTimeout(() => {
+        triggerWhatsAppCountdown();
+      }, 700);
+    }
+  });
+
+  window.addEventListener('focus', () => {
+    if (state.upiAppClicked && !state.redirectTriggered) {
+      setTimeout(() => {
+        triggerWhatsAppCountdown();
+      }, 700);
+    }
+  });
+
+  // Modal Cancel & Immediate redirect
+  if (dom.btnWaCancel) {
+    dom.btnWaCancel.addEventListener('click', cancelWhatsAppCountdown);
+  }
+
+  if (dom.btnWaRedirectNow) {
+    dom.btnWaRedirectNow.addEventListener('click', () => {
+      clearInterval(state.countdownInterval);
+      if (dom.waRedirectModal) {
+        dom.waRedirectModal.style.display = 'none';
+      }
+      renderConfirmationStep();
+    });
+  }
+
+  // WhatsApp send button
   dom.btnWhatsappSend.addEventListener('click', () => {
-    // When user clicks WhatsApp, automatically show pass after a short delay
+    updateBookingStatusOnServer(state.bookingRef, 'Payment Screenshot Sent');
     setTimeout(() => {
       renderConfirmationStep();
     }, 1200);
   });
+
+  // Secret shortcut for owner: Ctrl + Shift + A
+  document.addEventListener('keydown', (e) => {
+    if (e.ctrlKey && e.shiftKey && (e.key === 'A' || e.key === 'a')) {
+      e.preventDefault();
+      window.location.href = 'admin.html';
+    }
+  });
+}
+
+function triggerWhatsAppCountdown() {
+  if (state.redirectTriggered) return;
+  state.redirectTriggered = true;
+
+  const ticket = TICKETS[state.selectedTicket];
+  const waMessage = `Hi, I've completed payment for AFTER DARK 🌙
+• Ticket: ${ticket.name}
+• Ref ID: ${state.bookingRef}
+• Name: ${state.fullName}
+• Phone: ${state.phone}
+• Amount: ₹${ticket.price.toLocaleString('en-IN')}
+
+Attaching my payment screenshot for digital pass issuance!`;
+
+  const waUrl = `https://wa.me/${CONFIG.whatsappPhone}?text=${encodeURIComponent(waMessage)}`;
+
+  if (dom.btnWaRedirectNow) dom.btnWaRedirectNow.href = waUrl;
+  if (dom.btnWhatsappSend) dom.btnWhatsappSend.href = waUrl;
+
+  if (dom.waRedirectModal) {
+    dom.waRedirectModal.style.display = 'flex';
+  }
+
+  let timeLeft = 3;
+  if (dom.waCountdownNum) dom.waCountdownNum.textContent = timeLeft;
+  if (dom.waProgressBar) {
+    dom.waProgressBar.style.transition = 'none';
+    dom.waProgressBar.style.width = '100%';
+    setTimeout(() => {
+      dom.waProgressBar.style.transition = 'width 3s linear';
+      dom.waProgressBar.style.width = '0%';
+    }, 50);
+  }
+
+  clearInterval(state.countdownInterval);
+  state.countdownInterval = setInterval(() => {
+    timeLeft--;
+    if (dom.waCountdownNum) dom.waCountdownNum.textContent = timeLeft;
+    if (timeLeft <= 0) {
+      clearInterval(state.countdownInterval);
+      if (dom.waRedirectModal) dom.waRedirectModal.style.display = 'none';
+      renderConfirmationStep();
+      window.location.href = waUrl;
+    }
+  }, 1000);
+}
+
+function cancelWhatsAppCountdown() {
+  clearInterval(state.countdownInterval);
+  if (dom.waRedirectModal) {
+    dom.waRedirectModal.style.display = 'none';
+  }
+  renderConfirmationStep();
 }
 
 function fallbackCopy(text) {
@@ -497,26 +623,67 @@ function initConfirmationActions() {
 }
 
 function saveBookingRecord() {
+  const record = {
+    bookingRef: state.bookingRef,
+    fullName: state.fullName,
+    phone: state.phone,
+    age: state.age,
+    email: state.email,
+    ticketType: state.selectedTicket,
+    ticketName: TICKETS[state.selectedTicket].name,
+    amount: TICKETS[state.selectedTicket].price,
+    guestCount: state.guestCount,
+    notes: state.notes,
+    status: 'Pending WhatsApp Verification',
+    timestamp: new Date().toISOString()
+  };
+
+  // 1. Save to LocalStorage
   try {
     const existing = JSON.parse(localStorage.getItem('afterDark_bookings') || '[]');
-    const record = {
-      bookingRef: state.bookingRef,
-      ticketType: state.selectedTicket,
-      ticketName: TICKETS[state.selectedTicket].name,
-      amount: TICKETS[state.selectedTicket].price,
-      name: state.fullName,
-      phone: state.phone,
-      age: state.age,
-      email: state.email,
-      guestCount: state.guestCount,
-      notes: state.notes,
-      timestamp: new Date().toISOString()
-    };
-    existing.unshift(record);
+    const existingIdx = existing.findIndex(b => b.bookingRef === record.bookingRef);
+    if (existingIdx >= 0) {
+      existing[existingIdx] = record;
+    } else {
+      existing.unshift(record);
+    }
     localStorage.setItem('afterDark_bookings', JSON.stringify(existing.slice(0, 50)));
   } catch (e) {
     console.warn('LocalStorage save skipped', e);
   }
+
+  // 2. Post to Backend Server
+  fetch('/api/bookings', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(record)
+  }).then(res => res.json())
+    .then(data => console.log('Booking synchronized with server:', data))
+    .catch(err => console.warn('Server offline; booking stored safely in local memory.', err));
+}
+
+function updateBookingStatusOnServer(bookingRef, status) {
+  try {
+    fetch('/api/admin/update-status?key=afterdark2026', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ bookingRef, status })
+    }).catch(() => {});
+  } catch (e) {}
+}
+
+function trackVisitor() {
+  try {
+    fetch('/api/track-visit', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        path: window.location.pathname,
+        referrer: document.referrer || 'Direct',
+        device: /Mobile|Android|iPhone|iPod|iPad/i.test(navigator.userAgent) ? 'Mobile' : 'Desktop'
+      })
+    }).catch(() => {});
+  } catch (e) {}
 }
 
 // ==========================================================================

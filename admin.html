@@ -1,0 +1,1254 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AFTER DARK | Owner Command Center & Analytics</title>
+  <meta name="robots" content="noindex, nofollow">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Outfit:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet">
+
+  <style>
+    :root {
+      --bg-deep: #05070d;
+      --bg-card: rgba(13, 21, 38, 0.75);
+      --bg-card-hover: rgba(18, 30, 54, 0.9);
+      --ice-light: #e8f6ff;
+      --ice-mid: #4fc3f7;
+      --ice-deep: #0b79d0;
+      --female-color: #ff2e93;
+      --stag-color: #e63950;
+      --couple-color: #b34fe0;
+      --standing-color: #2fa8ff;
+      --vip-color: #d4af37;
+      --text-pure: #ffffff;
+      --text-muted: #94a3b8;
+      --text-subtle: #64748b;
+      --border-subtle: rgba(255, 255, 255, 0.08);
+      --border-glow: rgba(79, 195, 247, 0.35);
+      --radius-sm: 8px;
+      --radius-md: 14px;
+      --radius-lg: 20px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-deep);
+      background-image: 
+        radial-gradient(circle at 15% 15%, rgba(79, 195, 247, 0.08) 0%, transparent 45%),
+        radial-gradient(circle at 85% 75%, rgba(255, 46, 147, 0.06) 0%, transparent 50%),
+        radial-gradient(circle at 50% 50%, rgba(179, 79, 224, 0.05) 0%, transparent 60%);
+      background-attachment: fixed;
+      color: var(--text-pure);
+      font-family: 'Outfit', sans-serif;
+      min-height: 100vh;
+      padding-bottom: 60px;
+    }
+
+    /* Ambient noise */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background-image: radial-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 0);
+      background-size: 24px 24px;
+      z-index: 0;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1360px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Header */
+    .admin-header {
+      padding: 24px 0;
+      border-bottom: 1px solid var(--border-subtle);
+      margin-bottom: 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1.25rem;
+    }
+
+    .brand-box {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .brand-logo {
+      height: 44px;
+      filter: drop-shadow(0 0 12px rgba(79, 195, 247, 0.4));
+    }
+
+    .brand-title {
+      font-family: 'Cinzel', serif;
+      font-size: 1.35rem;
+      letter-spacing: 2px;
+      background: linear-gradient(135deg, #fff 0%, var(--ice-mid) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 2px;
+    }
+
+    .brand-sub {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 18px;
+      border-radius: var(--radius-sm);
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      border: 1px solid transparent;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #4fc3f7 0%, #0b79d0 100%);
+      color: #05070d;
+      box-shadow: 0 0 15px rgba(79, 195, 247, 0.3);
+    }
+
+    .btn-primary:hover {
+      box-shadow: 0 0 25px rgba(79, 195, 247, 0.6);
+      transform: translateY(-2px);
+    }
+
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.05);
+      border-color: var(--border-subtle);
+      color: var(--text-pure);
+    }
+
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: var(--ice-mid);
+    }
+
+    .btn-outline-danger {
+      background: transparent;
+      border-color: rgba(230, 57, 80, 0.4);
+      color: #e63950;
+    }
+
+    .btn-outline-danger:hover {
+      background: rgba(230, 57, 80, 0.15);
+    }
+
+    /* Metric Cards Grid */
+    .metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.25rem;
+      margin-bottom: 2rem;
+    }
+
+    .metric-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 1.5rem;
+      backdrop-filter: blur(14px);
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.2s, border-color 0.2s;
+    }
+
+    .metric-card:hover {
+      transform: translateY(-3px);
+      border-color: var(--border-glow);
+    }
+
+    .metric-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: var(--ice-mid);
+    }
+
+    .metric-card.pink::before { background: var(--female-color); }
+    .metric-card.gold::before { background: var(--vip-color); }
+    .metric-card.purple::before { background: var(--couple-color); }
+
+    .metric-title {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .metric-value {
+      font-family: 'Cinzel', serif;
+      font-size: 2.1rem;
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 0.35rem;
+    }
+
+    .metric-sub {
+      font-size: 0.78rem;
+      color: var(--text-subtle);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .metric-sub .highlight {
+      color: #10b981;
+      font-weight: 600;
+    }
+
+    /* Breakdown Bar */
+    .breakdown-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .breakdown-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+    }
+
+    .breakdown-title {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--text-pure);
+      letter-spacing: 0.5px;
+    }
+
+    .category-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .cat-pill {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      padding: 8px 14px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex: 1;
+      min-width: 170px;
+    }
+
+    .cat-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+    }
+
+    .cat-name {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .cat-count {
+      margin-left: auto;
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: #fff;
+    }
+
+    /* Main Table Section */
+    .panel {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+      backdrop-filter: blur(14px);
+    }
+
+    .panel-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .panel-title {
+      font-family: 'Cinzel', serif;
+      font-size: 1.2rem;
+      letter-spacing: 1px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .table-controls {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .search-input {
+      background: rgba(5, 7, 13, 0.7);
+      border: 1px solid var(--border-subtle);
+      color: #fff;
+      padding: 8px 14px;
+      border-radius: var(--radius-sm);
+      font-size: 0.85rem;
+      outline: none;
+      min-width: 240px;
+      transition: border-color 0.2s;
+    }
+
+    .search-input:focus {
+      border-color: var(--ice-mid);
+    }
+
+    .table-container {
+      overflow-x: auto;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border-subtle);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 0.85rem;
+    }
+
+    thead {
+      background: rgba(5, 7, 13, 0.9);
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    th {
+      padding: 12px 16px;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      font-size: 0.75rem;
+      letter-spacing: 1px;
+      white-space: nowrap;
+    }
+
+    tbody tr {
+      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+      transition: background 0.15s;
+    }
+
+    tbody tr:hover {
+      background: rgba(255, 255, 255, 0.03);
+    }
+
+    td {
+      padding: 14px 16px;
+      color: var(--text-pure);
+      vertical-align: middle;
+      white-space: nowrap;
+    }
+
+    .ref-badge {
+      font-family: monospace;
+      font-weight: 700;
+      color: var(--ice-mid);
+      background: rgba(79, 195, 247, 0.1);
+      padding: 3px 8px;
+      border-radius: 4px;
+      border: 1px solid rgba(79, 195, 247, 0.3);
+    }
+
+    .guest-name {
+      font-weight: 600;
+      color: #ffffff;
+    }
+
+    .whatsapp-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: #25d366;
+      text-decoration: none;
+      font-weight: 500;
+      padding: 4px 8px;
+      background: rgba(37, 211, 102, 0.08);
+      border-radius: 4px;
+      border: 1px solid rgba(37, 211, 102, 0.2);
+      transition: background 0.2s;
+    }
+
+    .whatsapp-link:hover {
+      background: rgba(37, 211, 102, 0.2);
+    }
+
+    .ticket-badge {
+      display: inline-block;
+      padding: 4px 10px;
+      border-radius: 9999px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      border: 1px solid currentColor;
+    }
+
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 10px;
+      border-radius: 9999px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      cursor: pointer;
+      border: 1px solid transparent;
+      user-select: none;
+    }
+
+    .status-pending {
+      background: rgba(251, 191, 36, 0.1);
+      color: #fbbf24;
+      border-color: rgba(251, 191, 36, 0.3);
+    }
+
+    .status-verified {
+      background: rgba(16, 185, 129, 0.12);
+      color: #10b981;
+      border-color: rgba(16, 185, 129, 0.3);
+    }
+
+    .btn-delete-row {
+      background: rgba(230, 57, 80, 0.12);
+      border: 1px solid rgba(230, 57, 80, 0.35);
+      color: #ff5c72;
+      padding: 5px 10px;
+      border-radius: var(--radius-sm);
+      font-size: 0.75rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .btn-delete-row:hover {
+      background: rgba(230, 57, 80, 0.3);
+      border-color: #e63950;
+      color: #fff;
+      transform: scale(1.05);
+    }
+
+    .empty-state {
+      padding: 40px;
+      text-align: center;
+      color: var(--text-muted);
+    }
+
+    /* Auth Modal Screen */
+    #auth-screen {
+      position: fixed;
+      inset: 0;
+      background: rgba(5, 7, 13, 0.96);
+      backdrop-filter: blur(20px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      padding: 1.5rem;
+    }
+
+    .auth-card {
+      background: rgba(13, 21, 38, 0.95);
+      border: 1px solid var(--border-glow);
+      border-radius: var(--radius-lg);
+      padding: 2.5rem 2rem;
+      max-width: 440px;
+      width: 100%;
+      text-align: center;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), 0 0 30px rgba(79, 195, 247, 0.2);
+    }
+
+    .auth-logo {
+      height: 60px;
+      margin-bottom: 1.5rem;
+      filter: drop-shadow(0 0 15px rgba(79, 195, 247, 0.4));
+    }
+
+    .auth-title {
+      font-family: 'Cinzel', serif;
+      font-size: 1.35rem;
+      letter-spacing: 2px;
+      margin-bottom: 0.5rem;
+      color: #fff;
+    }
+
+    .auth-sub {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 1.75rem;
+    }
+
+    .auth-input-group {
+      margin-bottom: 1.25rem;
+      position: relative;
+    }
+
+    .auth-input {
+      width: 100%;
+      background: rgba(5, 7, 13, 0.8);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      padding: 12px 16px;
+      font-size: 1rem;
+      color: #fff;
+      text-align: center;
+      letter-spacing: 3px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .auth-input:focus {
+      border-color: var(--ice-mid);
+      box-shadow: 0 0 15px rgba(79, 195, 247, 0.3);
+    }
+
+    .auth-error {
+      color: #e63950;
+      font-size: 0.8rem;
+      margin-top: 8px;
+      display: none;
+    }
+
+    /* Live pulse */
+    .pulse-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #10b981;
+      display: inline-block;
+      box-shadow: 0 0 8px #10b981;
+      animation: pulse 1.5s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.4); opacity: 0.7; }
+    }
+
+    /* Responsive */
+    @media (max-width: 1024px) {
+      .metrics-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 640px) {
+      .metrics-grid {
+        grid-template-columns: 1fr;
+      }
+      .admin-header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .search-input {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ========================================================================
+       Passcode Login Barrier
+       ======================================================================== -->
+  <div id="auth-screen">
+    <div class="auth-card">
+      <img src="assets/logo.png" alt="AFTER DARK" class="auth-logo">
+      <h2 class="auth-title">OWNER COMMAND CENTER</h2>
+      <p class="auth-sub">Enter your private concierge passcode to inspect visitor traffic and guest leads.</p>
+
+      <form id="auth-form">
+        <div class="auth-input-group">
+          <input type="password" id="auth-password" class="auth-input" placeholder="••••••••" required autofocus
+            autocomplete="current-password">
+          <div class="auth-error" id="auth-error">Incorrect passcode. Access denied.</div>
+        </div>
+        <button type="submit" class="btn btn-primary" style="width: 100%; justify-content: center; padding: 12px;">
+          Unlock Dashboard
+        </button>
+      </form>
+      <div style="margin-top: 1.25rem;">
+        <a href="/" style="font-size: 0.8rem; color: var(--text-subtle); text-decoration: none;">← Return to Main Website</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================================
+       Main Owner Dashboard (Revealed upon Unlock)
+       ======================================================================== -->
+  <div id="dashboard-content" style="display: none;">
+    <div class="container">
+
+      <!-- Header -->
+      <header class="admin-header">
+        <div class="brand-box">
+          <img src="assets/logo.png" alt="AFTER DARK" class="brand-logo">
+          <div>
+            <h1 class="brand-title">AFTER DARK COMMAND CENTER</h1>
+            <div class="brand-sub">
+              <span class="pulse-dot"></span> Live Concierge & Guest Admissions • NØHREIN
+            </div>
+          </div>
+        </div>
+
+        <div class="header-actions">
+          <button type="button" class="btn btn-secondary" id="btn-refresh" title="Refresh Latest Data">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <path d="M23 4v6h-6M1 20v-6h6M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15" />
+            </svg>
+            <span>Refresh</span>
+          </button>
+
+          <a href="#" class="btn btn-primary" id="btn-export-csv" title="Download Excel Spreadsheet">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3" />
+            </svg>
+            <span>Export to Excel (.CSV)</span>
+          </a>
+
+          <button type="button" class="btn btn-outline-danger" id="btn-clear-all" title="Delete All Fake / Test Bookings">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="3 6 5 6 21 6"></polyline>
+              <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+              <line x1="10" y1="11" x2="10" y2="17"></line>
+              <line x1="14" y1="11" x2="14" y2="17"></line>
+            </svg>
+            <span>Delete All Fake Data</span>
+          </button>
+
+          <a href="/" class="btn btn-secondary" target="_blank" title="View Public Website">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3" />
+            </svg>
+            <span>Live Site</span>
+          </a>
+
+          <button type="button" class="btn btn-secondary" id="btn-logout" title="Lock Dashboard">
+            Lock
+          </button>
+        </div>
+      </header>
+
+      <!-- Key Metrics Row -->
+      <section class="metrics-grid">
+        <!-- Metric 1: Visitors -->
+        <div class="metric-card">
+          <div class="metric-title">
+            <span>Total Site Visitors</span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--ice-mid)" stroke-width="2">
+              <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+              <circle cx="12" cy="12" r="3" />
+            </svg>
+          </div>
+          <div class="metric-value" id="val-total-visits">0</div>
+          <div class="metric-sub">
+            <span class="highlight" id="val-unique-visits">0</span> unique IP guests • <span id="val-today-visits">0</span> today
+          </div>
+        </div>
+
+        <!-- Metric 2: Bookings -->
+        <div class="metric-card pink">
+          <div class="metric-title">
+            <span>Registered Attendees</span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--female-color)" stroke-width="2">
+              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+              <circle cx="9" cy="7" r="4" />
+              <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+              <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+            </svg>
+          </div>
+          <div class="metric-value" id="val-total-bookings">0</div>
+          <div class="metric-sub">
+            Forms submitted & payment initiated
+          </div>
+        </div>
+
+        <!-- Metric 3: Pipeline Revenue -->
+        <div class="metric-card gold">
+          <div class="metric-title">
+            <span>Potential Ticket Revenue</span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--vip-color)" stroke-width="2">
+              <line x1="12" y1="1" x2="12" y2="23" />
+              <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+            </svg>
+          </div>
+          <div class="metric-value" id="val-total-revenue">₹0</div>
+          <div class="metric-sub">
+            Cumulative value of requested passes
+          </div>
+        </div>
+
+        <!-- Metric 4: Conversion Rate -->
+        <div class="metric-card purple">
+          <div class="metric-title">
+            <span>Visitor Conversion</span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--couple-color)" stroke-width="2">
+              <polyline points="23 6 13.5 15.5 8.5 10.5 1 18" />
+              <polyline points="17 6 23 6 23 12" />
+            </svg>
+          </div>
+          <div class="metric-value" id="val-conversion-rate">0%</div>
+          <div class="metric-sub">
+            Visitors who completed registration
+          </div>
+        </div>
+      </section>
+
+      <!-- Category Breakdown -->
+      <section class="breakdown-card">
+        <div class="breakdown-header">
+          <h3 class="breakdown-title">Pass Registrations by Ticket Tier</h3>
+          <span style="font-size: 0.75rem; color: var(--text-subtle);">All 5 Ticket Categories</span>
+        </div>
+        <div class="category-pills">
+          <div class="cat-pill">
+            <span class="cat-dot" style="background: var(--female-color); box-shadow: 0 0 8px var(--female-color);"></span>
+            <span class="cat-name">Female Stag (₹1,000)</span>
+            <span class="cat-count" id="count-female">0</span>
+          </div>
+          <div class="cat-pill">
+            <span class="cat-dot" style="background: var(--stag-color); box-shadow: 0 0 8px var(--stag-color);"></span>
+            <span class="cat-name">Stag Entry (₹2,500)</span>
+            <span class="cat-count" id="count-stag">0</span>
+          </div>
+          <div class="cat-pill">
+            <span class="cat-dot" style="background: var(--couple-color); box-shadow: 0 0 8px var(--couple-color);"></span>
+            <span class="cat-name">Couple Entry (₹3,000)</span>
+            <span class="cat-count" id="count-couple">0</span>
+          </div>
+          <div class="cat-pill">
+            <span class="cat-dot" style="background: var(--standing-color); box-shadow: 0 0 8px var(--standing-color);"></span>
+            <span class="cat-name">Standing Table (₹10,000)</span>
+            <span class="cat-count" id="count-standing">0</span>
+          </div>
+          <div class="cat-pill">
+            <span class="cat-dot" style="background: var(--vip-color); box-shadow: 0 0 8px var(--vip-color);"></span>
+            <span class="cat-name">VIP Table (₹30,000)</span>
+            <span class="cat-count" id="count-vip">0</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Attendees Table Panel -->
+      <section class="panel">
+        <div class="panel-header">
+          <h2 class="panel-title">
+            <span>Attendee Registrations & Payment Leads</span>
+            <span style="font-size: 0.75rem; background: rgba(255,255,255,0.08); padding: 2px 8px; border-radius: 999px;" id="badge-total-records">0</span>
+          </h2>
+          <div class="table-controls">
+            <input type="text" id="table-search" class="search-input" placeholder="🔍 Search name, phone, ref ID...">
+          </div>
+        </div>
+
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>Booking Ref</th>
+                <th>Guest Name</th>
+                <th>Phone Number (WhatsApp)</th>
+                <th>Age</th>
+                <th>Email</th>
+                <th>Ticket Category</th>
+                <th>Price (INR)</th>
+                <th>Guests</th>
+                <th>Date & Time</th>
+                <th>Notes / Requests</th>
+                <th>Status (Click to toggle)</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="bookings-table-body">
+              <tr>
+                <td colspan="12" class="empty-state">Loading registered attendees...</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Live Visitors Activity Log -->
+      <section class="panel">
+        <div class="panel-header">
+          <h2 class="panel-title" style="font-size: 1.05rem;">
+            <span>Recent Visitor Traffic Log</span>
+          </h2>
+          <span style="font-size: 0.75rem; color: var(--text-muted);">Displays last 50 visits</span>
+        </div>
+
+        <div class="table-container" style="max-height: 320px; overflow-y: auto;">
+          <table>
+            <thead>
+              <tr>
+                <th>Timestamp</th>
+                <th>Device</th>
+                <th>IP (Masked)</th>
+                <th>Referrer Source</th>
+                <th>Page Visited</th>
+              </tr>
+            </thead>
+            <tbody id="visits-table-body">
+              <tr>
+                <td colspan="5" class="empty-state">Loading visitor log...</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+    </div>
+  </div>
+
+  <!-- Script Logic -->
+  <script>
+    const AUTH_KEY_STORAGE = 'afterDark_admin_auth';
+    let currentKey = sessionStorage.getItem(AUTH_KEY_STORAGE) || '';
+    let globalBookings = [];
+    let globalSummary = {};
+
+    const TICKET_COLORS = {
+      female: '#ff2e93',
+      stag: '#e63950',
+      couple: '#b34fe0',
+      standing: '#2fa8ff',
+      vip: '#d4af37'
+    };
+
+    // DOM Elements
+    const authScreen = document.getElementById('auth-screen');
+    const authForm = document.getElementById('auth-form');
+    const authPassword = document.getElementById('auth-password');
+    const authError = document.getElementById('auth-error');
+    const dashboardContent = document.getElementById('dashboard-content');
+    const btnRefresh = document.getElementById('btn-refresh');
+    const btnExportCsv = document.getElementById('btn-export-csv');
+    const btnClearAll = document.getElementById('btn-clear-all');
+    const btnLogout = document.getElementById('btn-logout');
+    const tableSearch = document.getElementById('table-search');
+    const bookingsTableBody = document.getElementById('bookings-table-body');
+    const visitsTableBody = document.getElementById('visits-table-body');
+
+    // Metrics DOM
+    const valTotalVisits = document.getElementById('val-total-visits');
+    const valUniqueVisits = document.getElementById('val-unique-visits');
+    const valTodayVisits = document.getElementById('val-today-visits');
+    const valTotalBookings = document.getElementById('val-total-bookings');
+    const valTotalRevenue = document.getElementById('val-total-revenue');
+    const valConversionRate = document.getElementById('val-conversion-rate');
+    const badgeTotalRecords = document.getElementById('badge-total-records');
+
+    // Categories DOM
+    const countFemale = document.getElementById('count-female');
+    const countStag = document.getElementById('count-stag');
+    const countCouple = document.getElementById('count-couple');
+    const countStanding = document.getElementById('count-standing');
+    const countVip = document.getElementById('count-vip');
+
+    // Init
+    document.addEventListener('DOMContentLoaded', () => {
+      if (currentKey) {
+        attemptLogin(currentKey);
+      } else {
+        authScreen.style.display = 'flex';
+      }
+
+      authForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const pwd = authPassword.value.trim();
+        attemptLogin(pwd);
+      });
+
+      btnLogout.addEventListener('click', () => {
+        sessionStorage.removeItem(AUTH_KEY_STORAGE);
+        currentKey = '';
+        dashboardContent.style.display = 'none';
+        authScreen.style.display = 'flex';
+        authPassword.value = '';
+      });
+
+      btnRefresh.addEventListener('click', () => {
+        loadDashboardData();
+      });
+
+      if (btnClearAll) {
+        btnClearAll.addEventListener('click', () => {
+          clearAllTestData();
+        });
+      }
+
+      tableSearch.addEventListener('input', () => {
+        filterTable(tableSearch.value.trim().toLowerCase());
+      });
+
+      // Periodic auto-refresh every 20 seconds
+      setInterval(() => {
+        if (currentKey && dashboardContent.style.display !== 'none') {
+          loadDashboardData(true);
+        }
+      }, 20000);
+    });
+
+    async function attemptLogin(key) {
+      try {
+        const res = await fetch(`/api/admin/data?key=${encodeURIComponent(key)}`);
+        if (res.ok) {
+          const data = await res.json();
+          currentKey = key;
+          sessionStorage.setItem(AUTH_KEY_STORAGE, key);
+          authScreen.style.display = 'none';
+          dashboardContent.style.display = 'block';
+          btnExportCsv.href = `/api/admin/export-csv?key=${encodeURIComponent(key)}`;
+          renderDashboard(data);
+        } else {
+          // If server responded with 401
+          authError.style.display = 'block';
+          sessionStorage.removeItem(AUTH_KEY_STORAGE);
+        }
+      } catch (err) {
+        console.warn('Backend server not connected. Attempting local storage fallback...', err);
+        // Fallback for static preview / offline mode
+        if (key === 'afterdark2026' || key === '2026') {
+          currentKey = key;
+          sessionStorage.setItem(AUTH_KEY_STORAGE, key);
+          authScreen.style.display = 'none';
+          dashboardContent.style.display = 'block';
+          loadLocalFallback();
+        } else {
+          authError.style.display = 'block';
+        }
+      }
+    }
+
+    async function loadDashboardData(silent = false) {
+      if (!silent) btnRefresh.style.opacity = '0.5';
+      try {
+        const res = await fetch(`/api/admin/data?key=${encodeURIComponent(currentKey)}`);
+        if (res.ok) {
+          const data = await res.json();
+          renderDashboard(data);
+        } else if (res.status === 401) {
+          btnLogout.click();
+        }
+      } catch (err) {
+        console.warn('Error refreshing data from server:', err);
+        loadLocalFallback();
+      } finally {
+        if (!silent) btnRefresh.style.opacity = '1';
+      }
+    }
+
+    function renderDashboard(data) {
+      const summary = data.summary || {};
+      globalBookings = data.bookings || [];
+      globalSummary = summary;
+
+      // Update Metrics
+      valTotalVisits.textContent = (summary.totalVisits || 0).toLocaleString('en-IN');
+      valUniqueVisits.textContent = (summary.uniqueVisitors || 0).toLocaleString('en-IN');
+      valTodayVisits.textContent = (summary.todayVisits || 0).toLocaleString('en-IN');
+      valTotalBookings.textContent = (summary.totalBookings || 0).toLocaleString('en-IN');
+      valTotalRevenue.textContent = `₹${(summary.totalRevenue || 0).toLocaleString('en-IN')}`;
+      
+      const conv = summary.totalVisits > 0 
+        ? ((summary.totalBookings / summary.totalVisits) * 100).toFixed(1) + '%'
+        : '0%';
+      valConversionRate.textContent = conv;
+      badgeTotalRecords.textContent = globalBookings.length;
+
+      // Update Categories
+      const cats = summary.categoryCounts || {};
+      countFemale.textContent = cats.female || 0;
+      countStag.textContent = cats.stag || 0;
+      countCouple.textContent = cats.couple || 0;
+      countStanding.textContent = cats.standing || 0;
+      countVip.textContent = cats.vip || 0;
+
+      // Render Attendees Table
+      renderBookingsTable(globalBookings);
+
+      // Render Visits Log
+      renderVisitsTable(data.recentVisits || []);
+    }
+
+    function renderBookingsTable(list) {
+      if (!list || list.length === 0) {
+        bookingsTableBody.innerHTML = `
+          <tr>
+            <td colspan="12" class="empty-state">No attendee bookings logged yet. Form submissions will appear here live!</td>
+          </tr>
+        `;
+        return;
+      }
+
+      bookingsTableBody.innerHTML = list.map(b => {
+        const type = (b.ticketType || '').toLowerCase();
+        const color = TICKET_COLORS[type] || '#4fc3f7';
+        const isVerified = (b.status || '').toLowerCase().includes('verified');
+        const statusClass = isVerified ? 'status-verified' : 'status-pending';
+        const cleanPhone = (b.phone || '').replace(/\D/g, '');
+        const waChatUrl = `https://wa.me/91${cleanPhone}?text=${encodeURIComponent(`Hi ${b.fullName}, regarding your AFTER DARK booking (${b.bookingRef})...`)}`;
+
+        return `
+          <tr>
+            <td><span class="ref-badge">${escapeHtml(b.bookingRef || 'N/A')}</span></td>
+            <td><span class="guest-name">${escapeHtml(b.fullName || 'Guest')}</span></td>
+            <td>
+              <a href="${waChatUrl}" target="_blank" class="whatsapp-link" title="Open direct WhatsApp chat with guest">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z" />
+                </svg>
+                <span>+91 ${escapeHtml(b.phone || '')}</span>
+              </a>
+            </td>
+            <td>${b.age ? b.age + ' yrs' : '—'}</td>
+            <td style="color: var(--text-muted);">${escapeHtml(b.email || '—')}</td>
+            <td>
+              <span class="ticket-badge" style="color: ${color}; border-color: ${color}; background: ${color}15;">
+                ${escapeHtml(b.ticketName || b.ticketType || 'Pass')}
+              </span>
+            </td>
+            <td style="font-weight: 700; color: #fff;">₹${(b.amount || 0).toLocaleString('en-IN')}</td>
+            <td>${b.guestCount || 1} Guest${(b.guestCount || 1) > 1 ? 's' : ''}</td>
+            <td style="font-size: 0.78rem; color: var(--text-muted);">${escapeHtml(b.formattedDate || b.timestamp || '—')}</td>
+            <td style="max-width: 180px; overflow: hidden; text-overflow: ellipsis;" title="${escapeHtml(b.notes || '')}">
+              ${escapeHtml(b.notes || '—')}
+            </td>
+            <td>
+              <span class="status-badge ${statusClass}" onclick="toggleStatus('${escapeHtml(b.bookingRef)}', '${b.status || ''}')" title="Click to toggle status">
+                ${isVerified ? '✓ Verified' : '⏳ Pending'}
+              </span>
+            </td>
+            <td>
+              <button type="button" class="btn-delete-row" onclick="deleteSingleBooking('${escapeHtml(b.bookingRef)}', '${escapeHtml(b.fullName || 'Guest')}')" title="Delete this booking">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polyline points="3 6 5 6 21 6"></polyline>
+                  <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                </svg>
+                <span>Delete</span>
+              </button>
+            </td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    function renderVisitsTable(visits) {
+      if (!visits || visits.length === 0) {
+        visitsTableBody.innerHTML = `
+          <tr><td colspan="5" class="empty-state">No visitor logs recorded yet.</td></tr>
+        `;
+        return;
+      }
+
+      visitsTableBody.innerHTML = visits.map(v => `
+        <tr>
+          <td style="font-size: 0.78rem;">${escapeHtml(v.date || '')} ${escapeHtml(v.time || '')}</td>
+          <td><strong>${escapeHtml(v.device || 'Desktop')}</strong></td>
+          <td style="font-family: monospace; color: var(--text-muted);">${escapeHtml(v.ip || '127.0.0.1')}</td>
+          <td style="max-width: 200px; overflow: hidden; text-overflow: ellipsis; color: var(--text-muted);">${escapeHtml(v.referrer || 'Direct')}</td>
+          <td><code>${escapeHtml(v.page || '/')}</code></td>
+        </tr>
+      `).join('');
+    }
+
+    async function toggleStatus(bookingRef, currentStatus) {
+      const newStatus = (currentStatus || '').toLowerCase().includes('verified') 
+        ? 'Pending WhatsApp Verification' 
+        : 'Payment Verified ✓';
+
+      try {
+        const res = await fetch(`/api/admin/update-status?key=${encodeURIComponent(currentKey)}`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ bookingRef, status: newStatus })
+        });
+        if (res.ok) {
+          loadDashboardData(true);
+        }
+      } catch (e) {
+        // LocalStorage fallback update
+        updateLocalBookingStatus(bookingRef, newStatus);
+      }
+    }
+
+    function filterTable(query) {
+      if (!query) {
+        renderBookingsTable(globalBookings);
+        return;
+      }
+      const filtered = globalBookings.filter(b => {
+        const str = `${b.bookingRef} ${b.fullName} ${b.phone} ${b.email} ${b.ticketName} ${b.notes}`.toLowerCase();
+        return str.includes(query);
+      });
+      renderBookingsTable(filtered);
+    }
+
+    function loadLocalFallback() {
+      try {
+        const local = JSON.parse(localStorage.getItem('afterDark_bookings') || '[]');
+        globalBookings = local;
+        let totalRev = 0;
+        const cats = { female: 0, stag: 0, couple: 0, standing: 0, vip: 0 };
+        local.forEach(b => {
+          totalRev += (b.amount || 0);
+          const t = (b.ticketType || '').toLowerCase();
+          if (cats[t] !== undefined) cats[t]++;
+        });
+
+        valTotalVisits.textContent = 'Local Mode';
+        valUniqueVisits.textContent = 'Local';
+        valTodayVisits.textContent = local.length;
+        valTotalBookings.textContent = local.length;
+        valTotalRevenue.textContent = `₹${totalRev.toLocaleString('en-IN')}`;
+        valConversionRate.textContent = '100%';
+        badgeTotalRecords.textContent = local.length;
+
+        countFemale.textContent = cats.female;
+        countStag.textContent = cats.stag;
+        countCouple.textContent = cats.couple;
+        countStanding.textContent = cats.standing;
+        countVip.textContent = cats.vip;
+
+        renderBookingsTable(local);
+        visitsTableBody.innerHTML = `
+          <tr><td colspan="5" class="empty-state">Running in Local Storage preview. Start <code>npm start</code> to see live server logs.</td></tr>
+        `;
+      } catch (e) {
+        console.error(e);
+      }
+    }
+
+    async function deleteSingleBooking(bookingRef, guestName) {
+      if (!confirm(`Are you sure you want to permanently delete the booking for "${guestName}" (${bookingRef})?`)) {
+        return;
+      }
+
+      try {
+        const res = await fetch(`/api/admin/delete-booking?key=${encodeURIComponent(currentKey)}`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ bookingRef })
+        });
+        if (res.ok) {
+          removeLocalBooking(bookingRef);
+          loadDashboardData(true);
+        } else {
+          alert('Failed to delete booking from server.');
+        }
+      } catch (err) {
+        removeLocalBooking(bookingRef);
+        loadLocalFallback();
+      }
+    }
+
+    async function clearAllTestData() {
+      const confirmed = confirm('⚠️ Are you sure you want to delete ALL fake / test booking data? This action cannot be undone.');
+      if (!confirmed) return;
+
+      const clearVisits = confirm('Do you also want to reset the Visitor traffic count to 0? (Click OK to reset visits, or Cancel to keep visitor count)');
+
+      try {
+        const res = await fetch(`/api/admin/clear-all?key=${encodeURIComponent(currentKey)}`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ clearVisits })
+        });
+        if (res.ok) {
+          localStorage.removeItem('afterDark_bookings');
+          loadDashboardData(true);
+          alert('All test data has been deleted cleanly!');
+        }
+      } catch (err) {
+        localStorage.removeItem('afterDark_bookings');
+        loadLocalFallback();
+        alert('Local test data cleared!');
+      }
+    }
+
+    function removeLocalBooking(ref) {
+      const local = JSON.parse(localStorage.getItem('afterDark_bookings') || '[]');
+      const filtered = local.filter(b => b.bookingRef !== ref);
+      localStorage.setItem('afterDark_bookings', JSON.stringify(filtered));
+    }
+
+    function updateLocalBookingStatus(ref, newStatus) {
+      const local = JSON.parse(localStorage.getItem('afterDark_bookings') || '[]');
+      const idx = local.findIndex(b => b.bookingRef === ref);
+      if (idx >= 0) {
+        local[idx].status = newStatus;
+        localStorage.setItem('afterDark_bookings', JSON.stringify(local));
+        loadLocalFallback();
+      }
+    }
+
+    function escapeHtml(str) {
+      if (!str) return '';
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+    }
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,13 @@
+{
+  "name": "after-dark",
+  "version": "1.0.0",
+  "description": "AFTER DARK - Elite Nightlife Ticketing Platform & Concierge",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "keywords": ["nightlife", "ticketing", "after-dark", "upi"],
+  "author": "NØHREIN",
+  "license": "ISC"
+}
