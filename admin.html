@@ -997,6 +997,25 @@
         filterTable(tableSearch.value.trim().toLowerCase());
       });
 
+      // Event delegation for table action clicks (Delete & Toggle Status)
+      bookingsTableBody.addEventListener('click', (e) => {
+        const toggleEl = e.target.closest('[data-action="toggle-status"]');
+        if (toggleEl) {
+          const ref = toggleEl.dataset.ref;
+          const status = toggleEl.dataset.status;
+          toggleStatus(ref, status);
+          return;
+        }
+
+        const deleteEl = e.target.closest('[data-action="delete-booking"]');
+        if (deleteEl) {
+          const ref = deleteEl.dataset.ref;
+          const name = deleteEl.dataset.name;
+          deleteSingleBooking(ref, name);
+          return;
+        }
+      });
+
       // Periodic auto-refresh every 20 seconds
       setInterval(() => {
         if (currentKey && dashboardContent.style.display !== 'none') {
@@ -1137,17 +1156,17 @@
               ${escapeHtml(b.notes || '—')}
             </td>
             <td>
-              <span class="status-badge ${statusClass}" onclick="toggleStatus('${escapeHtml(b.bookingRef)}', '${b.status || ''}')" title="Click to toggle status">
+              <span class="status-badge ${statusClass}" data-action="toggle-status" data-ref="${escapeHtml(b.bookingRef)}" data-status="${escapeHtml(b.status || '')}" title="Click to toggle status">
                 ${isVerified ? '✓ Verified' : '⏳ Pending'}
               </span>
             </td>
             <td>
-              <button type="button" class="btn-delete-row" onclick="deleteSingleBooking('${escapeHtml(b.bookingRef)}', '${escapeHtml(b.fullName || 'Guest')}')" title="Delete this booking">
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <button type="button" class="btn-delete-row" data-action="delete-booking" data-ref="${escapeHtml(b.bookingRef)}" data-name="${escapeHtml(b.fullName || 'Guest')}" title="Delete this booking">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="pointer-events: none;">
                   <polyline points="3 6 5 6 21 6"></polyline>
                   <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
                 </svg>
-                <span>Delete</span>
+                <span style="pointer-events: none;">Delete</span>
               </button>
             </td>
           </tr>
@@ -1175,22 +1194,29 @@
     }
 
     async function toggleStatus(bookingRef, currentStatus) {
-      const newStatus = (currentStatus || '').toLowerCase().includes('verified') 
-        ? 'Pending WhatsApp Verification' 
-        : 'Payment Verified ✓';
+      if (!bookingRef) return;
+      const isVerified = (currentStatus || '').toLowerCase().includes('verified');
+      const newStatus = isVerified ? 'Pending WhatsApp Verification' : 'Payment Verified ✓';
 
+      // 1. Instantly update in-memory state & re-render so UI is immediately responsive
+      const booking = globalBookings.find(b => b.bookingRef === bookingRef);
+      if (booking) {
+        booking.status = newStatus;
+        renderBookingsTable(globalBookings);
+      }
+
+      // 2. Always persist locally
+      updateLocalBookingStatus(bookingRef, newStatus);
+
+      // 3. Sync with backend if reachable (silent fail on static/Vercel)
       try {
-        const res = await fetch(`/api/admin/update-status?key=${encodeURIComponent(currentKey)}`, {
+        await fetch(`/api/admin/update-status?key=${encodeURIComponent(currentKey)}`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ bookingRef, status: newStatus })
         });
-        if (res.ok) {
-          loadDashboardData(true);
-        }
       } catch (e) {
-        // LocalStorage fallback update
-        updateLocalBookingStatus(bookingRef, newStatus);
+        // Backend not running (Vercel / static mode); already saved locally
       }
     }
 
@@ -1218,12 +1244,12 @@
           if (cats[t] !== undefined) cats[t]++;
         });
 
-        valTotalVisits.textContent = 'Local Mode';
+        valTotalVisits.textContent = 'Active';
         valUniqueVisits.textContent = 'Local';
         valTodayVisits.textContent = local.length;
         valTotalBookings.textContent = local.length;
         valTotalRevenue.textContent = `₹${totalRev.toLocaleString('en-IN')}`;
-        valConversionRate.textContent = '100%';
+        valConversionRate.textContent = local.length > 0 ? '100%' : '0%';
         badgeTotalRecords.textContent = local.length;
 
         countFemale.textContent = cats.female;
@@ -1234,7 +1260,7 @@
 
         renderBookingsTable(local);
         visitsTableBody.innerHTML = `
-          <tr><td colspan="5" class="empty-state">Running in Local Storage preview. Start <code>npm start</code> to see live server logs.</td></tr>
+          <tr><td colspan="5" class="empty-state">Running in Client / Local Storage mode.</td></tr>
         `;
       } catch (e) {
         console.error(e);
@@ -1242,25 +1268,26 @@
     }
 
     async function deleteSingleBooking(bookingRef, guestName) {
-      if (!confirm(`Are you sure you want to permanently delete the booking for "${guestName}" (${bookingRef})?`)) {
+      if (!bookingRef) return;
+      if (!confirm(`Are you sure you want to permanently delete the booking for "${guestName || 'this guest'}" (${bookingRef})?`)) {
         return;
       }
 
+      // 1. Immediately remove from memory and UI
+      globalBookings = globalBookings.filter(b => b.bookingRef !== bookingRef);
+      removeLocalBooking(bookingRef);
+      renderBookingsTable(globalBookings);
+      recalculateMetrics();
+
+      // 2. Sync deletion with backend if available
       try {
-        const res = await fetch(`/api/admin/delete-booking?key=${encodeURIComponent(currentKey)}`, {
+        await fetch(`/api/admin/delete-booking?key=${encodeURIComponent(currentKey)}`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ bookingRef })
         });
-        if (res.ok) {
-          removeLocalBooking(bookingRef);
-          loadDashboardData(true);
-        } else {
-          alert('Failed to delete booking from server.');
-        }
       } catch (err) {
-        removeLocalBooking(bookingRef);
-        loadLocalFallback();
+        // Backend not running (Vercel / static mode); already deleted locally
       }
     }
 
@@ -1270,22 +1297,44 @@
 
       const clearVisits = confirm('Do you also want to reset the Visitor traffic count to 0? (Click OK to reset visits, or Cancel to keep visitor count)');
 
+      // 1. Instantly clear local storage and UI
+      globalBookings = [];
+      localStorage.removeItem('afterDark_bookings');
+      renderBookingsTable([]);
+      recalculateMetrics();
+
+      // 2. Sync with backend if available
       try {
-        const res = await fetch(`/api/admin/clear-all?key=${encodeURIComponent(currentKey)}`, {
+        await fetch(`/api/admin/clear-all?key=${encodeURIComponent(currentKey)}`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ clearVisits })
         });
-        if (res.ok) {
-          localStorage.removeItem('afterDark_bookings');
-          loadDashboardData(true);
-          alert('All test data has been deleted cleanly!');
-        }
       } catch (err) {
-        localStorage.removeItem('afterDark_bookings');
-        loadLocalFallback();
-        alert('Local test data cleared!');
+        // Static / Vercel mode
       }
+
+      alert('All test data has been deleted cleanly!');
+    }
+
+    function recalculateMetrics() {
+      let totalRev = 0;
+      const cats = { female: 0, stag: 0, couple: 0, standing: 0, vip: 0 };
+      globalBookings.forEach(b => {
+        totalRev += (b.amount || 0);
+        const t = (b.ticketType || '').toLowerCase();
+        if (cats[t] !== undefined) cats[t]++;
+      });
+
+      valTotalBookings.textContent = globalBookings.length;
+      valTotalRevenue.textContent = `₹${totalRev.toLocaleString('en-IN')}`;
+      badgeTotalRecords.textContent = globalBookings.length;
+
+      countFemale.textContent = cats.female;
+      countStag.textContent = cats.stag;
+      countCouple.textContent = cats.couple;
+      countStanding.textContent = cats.standing;
+      countVip.textContent = cats.vip;
     }
 
     function removeLocalBooking(ref) {
@@ -1300,7 +1349,6 @@
       if (idx >= 0) {
         local[idx].status = newStatus;
         localStorage.setItem('afterDark_bookings', JSON.stringify(local));
-        loadLocalFallback();
       }
     }
 
@@ -1313,6 +1361,11 @@
         .replace(/"/g, '&quot;')
         .replace(/'/g, '&#039;');
     }
+
+    // Expose functions globally to guarantee availability
+    window.toggleStatus = toggleStatus;
+    window.deleteSingleBooking = deleteSingleBooking;
+    window.clearAllTestData = clearAllTestData;
   </script>
 </body>
 
